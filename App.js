@@ -40,7 +40,7 @@ export default function App() {
         <Button
           title="Add Task"
           onPress={addTaskHandler}
-          color="#007bff" // Blue background color for the button
+          color="#007bff"
         />
       </View>
 
@@ -64,16 +64,16 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     paddingTop: 50,
-    backgroundColor: 'black', // Black background
+    backgroundColor: 'black', 
   },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: 'white', // White text color
+    color: 'white', 
   },
   addTaskContainer: {
-    backgroundColor: 'black', // Black background
+    backgroundColor: 'black', 
     borderRadius: 8,
     padding: 20,
     marginBottom: 20,
@@ -82,43 +82,43 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 5,
-    color: 'white', // White text color
+    color: 'white',
   },
   input: {
-    borderColor: 'white', // White border color
+    borderColor: 'white', 
     borderWidth: 1,
     borderRadius: 4,
     padding: 10,
     marginBottom: 10,
-    color: 'white', // White text color
+    color: 'white', 
   },
   tasksContainer: {
     flex: 1,
   },
   taskContainer: {
-    backgroundColor: '#007bff', // Blue background color
-    padding: 10, // Padding around tasks
+    backgroundColor: '#007bff', 
+    padding: 10, 
     marginBottom: 10,
     borderRadius: 8,
   },
   task: {
-    backgroundColor: 'black', // Black background
+    backgroundColor: 'black', 
     borderRadius: 8,
     padding: 20,
   },
   taskTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: 'white', // White text color
+    color: 'white',
   },
   taskComment: {
     fontSize: 16,
     marginBottom: 5,
-    color: 'white', // White text color
+    color: 'white', 
   },
   taskDate: {
     fontSize: 16,
-    color: 'white', // White text color
+    color: 'white', 
   },
 });
 
