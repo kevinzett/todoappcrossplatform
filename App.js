@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  FlatList,
-  Keyboard,
-} from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ScrollView, Platform } from 'react-native';
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
@@ -15,9 +7,8 @@ export default function App() {
   const [comment, setComment] = useState('');
   const [date, setDate] = useState('');
 
-  const addTask = () => {
-    Keyboard.dismiss();
-    setTasks([...tasks, { title: title, comment: comment, date: date }]);
+  const addTaskHandler = () => {
+    setTasks((prevTasks) => [...prevTasks, { id: Math.random().toString(), title, comment, date }]);
     setTitle('');
     setComment('');
     setDate('');
@@ -25,45 +16,45 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.addTaskBar}>
+      <Text style={styles.header}>Todo App</Text>
+
+      <View style={styles.addTaskContainer}>
+        <Text style={styles.addTaskLabel}>Title:</Text>
         <TextInput
           style={styles.input}
-          placeholder="Title"
           value={title}
           onChangeText={(text) => setTitle(text)}
         />
+        <Text style={styles.addTaskLabel}>Comment:</Text>
         <TextInput
           style={styles.input}
-          placeholder="Comment"
           value={comment}
           onChangeText={(text) => setComment(text)}
         />
+        <Text style={styles.addTaskLabel}>Date:</Text>
         <TextInput
           style={styles.input}
-          placeholder="Date"
           value={date}
           onChangeText={(text) => setDate(text)}
         />
-        <TouchableOpacity style={styles.addButton} onPress={addTask}>
-          <Text style={styles.addButtonText}>Add Task</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.tasksContainer}>
-        <Text style={styles.tasksTitle}>All Tasks:</Text>
-        <FlatList
-          data={tasks}
-          renderItem={({ item }) => (
-            <View style={styles.taskItem}>
-              <Text style={styles.taskTitle}>{item.title}</Text>
-              <Text style={styles.taskComment}>{item.comment}</Text>
-              <Text style={styles.taskDate}>{item.date}</Text>
-            </View>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-          contentContainerStyle={styles.tasksList}
+        <Button
+          title="Add Task"
+          onPress={addTaskHandler}
+          color="#007bff" // Blue background color for the button
         />
       </View>
+
+      <ScrollView style={styles.tasksContainer}>
+        {tasks.map((task) => (
+          <View key={task.id} style={styles.taskContainer}>
+            <View style={styles.task}>
+              <Text style={styles.taskTitle}>Title: {task.title}</Text>
+              <Text style={styles.taskComment}>Comment: {task.comment}</Text>
+              <Text style={styles.taskDate}>Date: {task.date}</Text>
+            </View>
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 }
@@ -71,56 +62,63 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    padding: 20,
     paddingTop: 50,
-    paddingHorizontal: 20,
+    backgroundColor: 'black', // Black background
   },
-  addTaskBar: {
-    flexDirection: 'row',
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: 'white', // White text color
+  },
+  addTaskContainer: {
+    backgroundColor: 'black', // Black background
+    borderRadius: 8,
+    padding: 20,
     marginBottom: 20,
   },
-  input: {
-    flex: 1,
-    height: 40,
-    borderWidth: 1,
-    borderRadius: 8,
-    marginRight: 10,
-    paddingHorizontal: 10,
-  },
-  addButton: {
-    backgroundColor: 'blue',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 8,
-    paddingHorizontal: 20,
-  },
-  addButtonText: {
-    color: '#fff',
+  addTaskLabel: {
     fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    color: 'white', // White text color
+  },
+  input: {
+    borderColor: 'white', // White border color
+    borderWidth: 1,
+    borderRadius: 4,
+    padding: 10,
+    marginBottom: 10,
+    color: 'white', // White text color
   },
   tasksContainer: {
     flex: 1,
   },
-  tasksTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
+  taskContainer: {
+    backgroundColor: '#007bff', // Blue background color
+    padding: 10, // Padding around tasks
     marginBottom: 10,
+    borderRadius: 8,
   },
-  tasksList: {
-    paddingBottom: 20,
-  },
-  taskItem: {
-    marginBottom: 10,
+  task: {
+    backgroundColor: 'black', // Black background
+    borderRadius: 8,
+    padding: 20,
   },
   taskTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
+    color: 'white', // White text color
   },
   taskComment: {
-    fontSize: 14,
+    fontSize: 16,
+    marginBottom: 5,
+    color: 'white', // White text color
   },
   taskDate: {
-    fontSize: 14,
-    color: 'gray',
+    fontSize: 16,
+    color: 'white', // White text color
   },
 });
+
